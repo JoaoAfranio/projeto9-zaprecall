@@ -13,48 +13,41 @@ const flashcards = [
 
 export default function Deck(){
 
-    const [openFlashCard, setOpenFlashCard] = React.useState([false,false,false,false])
-    const [openAnswerCard, setOpenAnswerCard] = React.useState([false,false,false,false])
+    // const [openFlashCard, setOpenFlashCard] = React.useState([false,false,false,false])
+    // const [openAnswerCard, setOpenAnswerCard] = React.useState([false,false,false,false])
+
+    const [focusCard, setFocusCard] = React.useState();
+    const [showAnswerFocusCard, setShowAnswerFocusCard] = React.useState(false);
 
     function openSelectedCard(i) {
-
-        const newArrayOpenCards = openFlashCard
-        newArrayOpenCards[i] = true;
-
-        setOpenFlashCard([...newArrayOpenCards])
+        setFocusCard(i)
+        setShowAnswerFocusCard(false);
     }
-    
-    function showAnswer(i) {
-        console.log("chegou aq")
-        const newArrayAnswerCards = openAnswerCard
-        newArrayAnswerCards[i] = true;
 
-        setOpenAnswerCard([...newArrayAnswerCards])
-    }
 
     return (
-        <div class="deck">
-            <div class="header">
+        <div className="deck">
+            <div className="header">
                 <img src={logo} alt="logo"/>
                 <h1>ZapRecall</h1>
             </div>
-            <div class="main">
+            <div className="main">
 
                 {flashcards.map((f, idx) => {
-                    if(openFlashCard[idx] === true) {
+                    if(focusCard === idx) {
                         return (
-                            <div key={idx} class="flashcard aberto"> 
-                                    {openAnswerCard[idx] === true ? f.resposta : f.pergunta}
+                            <div key={idx} className="flashcard aberto"> 
+                                    {showAnswerFocusCard === true ? f.resposta : f.pergunta}
                                     <div>
-                                        <img src={setinha} alt="play" onClick={() => {showAnswer(idx)}}></img>
+                                        <img src={setinha} alt="play" onClick={() => {setShowAnswerFocusCard(true)}}></img>
                                     </div>
                             </div>
                         )
                     } else {
                         return (
-                            <div onClick={() => {openSelectedCard(idx)}} key={idx} class="flashcard"> 
-                                {openFlashCard[idx] === true ? f.pergunta : `Pergunta ${idx + 1}` }
-                                <img class="icone" src={playOutline} alt="play"></img>
+                            <div onClick={() => {openSelectedCard(idx)}} key={idx} className="flashcard"> 
+                                Pergunta {idx + 1}
+                                <img className="icone" src={playOutline} alt="play"></img>
                             </div>
                         )
                     }
@@ -62,11 +55,11 @@ export default function Deck(){
                 })}
 
             </div>
-            <div class="footer">
-                <div class="action">
-                    <span class="button error">Não lembrei</span>
-                    <span class="button almost">Quase não lembrei</span>
-                    <span class="button zap">Zap!</span>
+            <div className="footer">
+                <div className="action">
+                    <span className="button error">Não lembrei</span>
+                    <span className="button almost">Quase não lembrei</span>
+                    <span className="button zap">Zap!</span>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ import Deck from "./Deck";
 
 export default function App(){
     return (
-        <div class="home">
+        <div className="home">
             <Deck />
         </div>
     );
