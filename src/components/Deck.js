@@ -1,5 +1,7 @@
 import logo from "../assets/img/logo.png"
 import playOutline from "../assets/img/play-outline-icon.svg"
+import setinha from "../assets/img/setinha.png"
+import React from "react";
 
 const flashcards = [
     {pergunta: "O que é JSX?", resposta: "Uma extensão de linguagem do JavaScript"},
@@ -8,7 +10,28 @@ const flashcards = [
     {pergunta: "Podemos colocar __ dentro do JSX", resposta: "Expressões"},
 ];
 
+
 export default function Deck(){
+
+    const [openFlashCard, setOpenFlashCard] = React.useState([false,false,false,false])
+    const [openAnswerCard, setOpenAnswerCard] = React.useState([false,false,false,false])
+
+    function openSelectedCard(i) {
+
+        const newArrayOpenCards = openFlashCard
+        newArrayOpenCards[i] = true;
+
+        setOpenFlashCard([...newArrayOpenCards])
+    }
+    
+    function showAnswer(i) {
+        console.log("chegou aq")
+        const newArrayAnswerCards = openAnswerCard
+        newArrayAnswerCards[i] = true;
+
+        setOpenAnswerCard([...newArrayAnswerCards])
+    }
+
     return (
         <div class="deck">
             <div class="header">
@@ -18,13 +41,26 @@ export default function Deck(){
             <div class="main">
 
                 {flashcards.map((f, idx) => {
-                    return <div key={idx} class="flashcard"> Pergunta {idx + 1} <img class="icone" src={playOutline} alt="play"></img></div>
+                    if(openFlashCard[idx] === true) {
+                        return (
+                            <div key={idx} class="flashcard aberto"> 
+                                    {openAnswerCard[idx] === true ? f.resposta : f.pergunta}
+                                    <div>
+                                        <img src={setinha} alt="play" onClick={() => {showAnswer(idx)}}></img>
+                                    </div>
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <div onClick={() => {openSelectedCard(idx)}} key={idx} class="flashcard"> 
+                                {openFlashCard[idx] === true ? f.pergunta : `Pergunta ${idx + 1}` }
+                                <img class="icone" src={playOutline} alt="play"></img>
+                            </div>
+                        )
+                    }
+
                 })}
 
-                {/* <div class="flashcard acerto">O que é JSX?</div>
-                <div class="flashcard erro">O que é JSX? </div>
-                <div class="flashcard help"> O que é JSX?</div>
-                <div class="flashcard aberto">O que é JSX? </div> */}
             </div>
             <div class="footer">
                 <div class="action">
