@@ -1,6 +1,8 @@
 import logo from "../assets/img/logo.png"
 import React from "react";
 import Flashcard from "./Flashcard";
+import styled from "styled-components";
+
 
 
 const flashcards = [
@@ -42,12 +44,12 @@ export default function Deck(){
 
 
     return (
-        <div className="deck">
-            <div className="header">
+        <Container>
+            <Header>
                 <img src={logo} alt="logo"/>
                 <h1>ZapRecall</h1>
-            </div>
-            <div className="main">
+            </Header>
+            <Main>
 
                 {flashcards.map((f, idx) => {
                     return <Flashcard 
@@ -62,15 +64,108 @@ export default function Deck(){
                                 />
                 })}
 
-            </div>
-            <div className="footer">
-                <div className="action">
-                    <span onClick={() => {answerCard("erro")}} className="button error">Não lembrei</span>
-                    <span onClick={() => {answerCard("help")}} className="button almost">Quase não lembrei</span>
-                    <span onClick={() => {answerCard("acerto")}} className="button zap">Zap!</span>
-                </div>
+            </Main>
+            <Footer>
+                <Action>
+                    <Button onClick={() => {answerCard("erro")}} className="error">Não lembrei</Button>
+                    <Button onClick={() => {answerCard("help")}} className="almost">Quase não lembrei</Button>
+                    <Button onClick={() => {answerCard("acerto")}} className="zap">Zap!</Button>
+                </Action>
                 <p>{listAnswerCards.length}/4 CONCLUÍDOS</p>
-            </div>
-        </div>
+            </Footer>
+        </Container>
     );
 }
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const Main = styled.div`
+    max-height: 400px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`
+
+const Header = styled.div`
+    position: fixed;
+    height: 80px;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 36px;
+    color: white;
+    font-family: "Righteous";
+    z-index: 1;
+    background-color: var(--cor-fundo);
+
+    img {
+        width: 52px;
+        height: 60px;
+    }
+`
+
+const Footer = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1;
+    width: 100%;
+    min-height: 70px;
+    padding: 14px 10px;
+    font-size: 18px;
+    color: black;
+    position: fixed;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`
+
+const Action = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+`
+
+const Button = styled.span`
+    width: 100%;
+    height: 40px;
+    background-color: green;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        filter: brightness(0.7)
+    }
+
+    &.error {
+        background-color: var(--cor-nao-lembrei);
+    }
+
+    &.almost {
+        background-color: var(--cor-quase-nao-lembrei);
+    }
+
+    &.zap {
+        background-color: var(--cor-zap);
+    }
+`
