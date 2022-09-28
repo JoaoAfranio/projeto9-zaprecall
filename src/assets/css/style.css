@@ -134,15 +134,15 @@ img.icone {
 }
 
 
-.icone .erro {
+.icone.erro {
   color: var(--nao-lembrei);
 }
 
-.icone .duvida {
+.icone.help {
   color: var(--cor-quase-nao-lembrei);
 }
 
-.icone .acerto {
+.icone.acerto {
   color: var(--cor-zap);
 }
 

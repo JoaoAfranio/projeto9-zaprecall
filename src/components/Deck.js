@@ -69,6 +69,7 @@ export default function Deck(){
                     <span onClick={() => {answerCard("help")}} className="button almost">Quase não lembrei</span>
                     <span onClick={() => {answerCard("acerto")}} className="button zap">Zap!</span>
                 </div>
+                <p>{listAnswerCards.length}/4 CONCLUÍDOS</p>
             </div>
         </div>
     );
