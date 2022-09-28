@@ -15,6 +15,7 @@ export default function Deck(){
 
     const [focusCard, setFocusCard] = React.useState();
     const [showAnswerFocusCard, setShowAnswerFocusCard] = React.useState(false);
+    const [listAnswerCards, setlistAnswerCards] = React.useState([]);
 
     function openSelectedCard(i) {
         setFocusCard(i)
@@ -23,6 +24,20 @@ export default function Deck(){
 
     function showAnswerCard() {
         setShowAnswerFocusCard(true)
+    }
+    
+    function getAnswerCard(idx) {
+        const hasAnswer = listAnswerCards.find((a) => a.id === idx);
+        if(hasAnswer) {
+            return {isAnswered: true, typeOfAnswer: hasAnswer.answer}
+        } else {
+            return {isAnswered: false, typeOfAnswer: ""}
+        }
+    }
+
+    function answerCard(ans) {
+        setlistAnswerCards([...listAnswerCards, {id: focusCard, answer: ans}])
+        setFocusCard();
     }
 
 
@@ -43,33 +58,16 @@ export default function Deck(){
                                 showAnswerCard={showAnswerCard}
                                 openSelectedCard={openSelectedCard}
                                 key={idx}
+                                answer={getAnswerCard(idx)}
                                 />
-                    // if(focusCard === idx) {
-                    //     return (
-                    //         <div key={idx} className="flashcard aberto"> 
-                    //                 {showAnswerFocusCard === true ? f.resposta : f.pergunta}
-                    //                 <div>
-                    //                     <img src={setinha} alt="play" onClick={() => {setShowAnswerFocusCard(true)}}></img>
-                    //                 </div>
-                    //         </div>
-                    //     )
-                    // } else {
-                    //     return (
-                    //         <div onClick={() => {openSelectedCard(idx)}} key={idx} className="flashcard"> 
-                    //             Pergunta {idx + 1}
-                    //             <img className="icone" src={playOutline} alt="play"></img>
-                    //         </div>
-                    //     )
-                    // }
-
                 })}
 
             </div>
             <div className="footer">
                 <div className="action">
-                    <span className="button error">Não lembrei</span>
-                    <span className="button almost">Quase não lembrei</span>
-                    <span className="button zap">Zap!</span>
+                    <span onClick={() => {answerCard("erro")}} className="button error">Não lembrei</span>
+                    <span onClick={() => {answerCard("help")}} className="button almost">Quase não lembrei</span>
+                    <span onClick={() => {answerCard("acerto")}} className="button zap">Zap!</span>
                 </div>
             </div>
         </div>
