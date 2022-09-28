@@ -1,7 +1,7 @@
 import logo from "../assets/img/logo.png"
-import playOutline from "../assets/img/play-outline-icon.svg"
-import setinha from "../assets/img/setinha.png"
 import React from "react";
+import Flashcard from "./Flashcard";
+
 
 const flashcards = [
     {pergunta: "O que é JSX?", resposta: "Uma extensão de linguagem do JavaScript"},
@@ -13,15 +13,16 @@ const flashcards = [
 
 export default function Deck(){
 
-    // const [openFlashCard, setOpenFlashCard] = React.useState([false,false,false,false])
-    // const [openAnswerCard, setOpenAnswerCard] = React.useState([false,false,false,false])
-
     const [focusCard, setFocusCard] = React.useState();
     const [showAnswerFocusCard, setShowAnswerFocusCard] = React.useState(false);
 
     function openSelectedCard(i) {
         setFocusCard(i)
         setShowAnswerFocusCard(false);
+    }
+
+    function showAnswerCard() {
+        setShowAnswerFocusCard(true)
     }
 
 
@@ -34,23 +35,32 @@ export default function Deck(){
             <div className="main">
 
                 {flashcards.map((f, idx) => {
-                    if(focusCard === idx) {
-                        return (
-                            <div key={idx} className="flashcard aberto"> 
-                                    {showAnswerFocusCard === true ? f.resposta : f.pergunta}
-                                    <div>
-                                        <img src={setinha} alt="play" onClick={() => {setShowAnswerFocusCard(true)}}></img>
-                                    </div>
-                            </div>
-                        )
-                    } else {
-                        return (
-                            <div onClick={() => {openSelectedCard(idx)}} key={idx} className="flashcard"> 
-                                Pergunta {idx + 1}
-                                <img className="icone" src={playOutline} alt="play"></img>
-                            </div>
-                        )
-                    }
+                    return <Flashcard 
+                                id={idx}
+                                content={f} 
+                                isFocusCard={focusCard === idx ? true : false}
+                                showAnswerFocusCard={showAnswerFocusCard}
+                                showAnswerCard={showAnswerCard}
+                                openSelectedCard={openSelectedCard}
+                                key={idx}
+                                />
+                    // if(focusCard === idx) {
+                    //     return (
+                    //         <div key={idx} className="flashcard aberto"> 
+                    //                 {showAnswerFocusCard === true ? f.resposta : f.pergunta}
+                    //                 <div>
+                    //                     <img src={setinha} alt="play" onClick={() => {setShowAnswerFocusCard(true)}}></img>
+                    //                 </div>
+                    //         </div>
+                    //     )
+                    // } else {
+                    //     return (
+                    //         <div onClick={() => {openSelectedCard(idx)}} key={idx} className="flashcard"> 
+                    //             Pergunta {idx + 1}
+                    //             <img className="icone" src={playOutline} alt="play"></img>
+                    //         </div>
+                    //     )
+                    // }
 
                 })}
 
