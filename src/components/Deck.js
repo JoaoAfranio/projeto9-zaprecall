@@ -2,7 +2,11 @@ import logo from "../assets/img/logo.png"
 import React from "react";
 import Flashcard from "./Flashcard";
 import styled from "styled-components";
-import Action from "./Action";
+
+import checkmark from "../assets/img/checkmark.svg"
+import close from "../assets/img/close.svg"
+import help from "../assets/img/help.svg"
+
 
 
 
@@ -19,6 +23,9 @@ export default function Deck(){
     const [focusCard, setFocusCard] = React.useState();
     const [showAnswerFocusCard, setShowAnswerFocusCard] = React.useState(false);
     const [listAnswerCards, setlistAnswerCards] = React.useState([]);
+
+    const [queueAnswers, setQueueAnswers] = React.useState([]);
+    const [hasAnswerAllCards, setHasAnswerAllCards] = React.useState(false);
 
     function openSelectedCard(i) {
         setFocusCard(i)
@@ -40,9 +47,29 @@ export default function Deck(){
 
     function answerCard(ans) {
         if(focusCard === undefined) return;
-        setlistAnswerCards([...listAnswerCards, {id: focusCard, answer: ans}])
+
+        const newList = [...listAnswerCards, {id: focusCard, answer: ans}]
+        setlistAnswerCards(newList)
         setFocusCard();
-        console.log(listAnswerCards);
+        
+        const lengthLista = listAnswerCards.length + 1;
+        if(lengthLista === flashcards.length) AnsweredAllCards(newList);
+    }
+
+    function AnsweredAllCards(list) {
+        const ordenedList = list.sort((a,b) => a.id > b.id)
+        const layoutQueue = ordenedList.map((ans) => { 
+            return (
+                <div key= {ans.id} class="icone">
+                    <img className={ans.answer} src={
+                    ans.answer === "acerto" ? checkmark : ans.answer === "erro" ? close : help} 
+                    alt={ans.answer}></img>
+                </div>
+            )
+        })
+
+        setHasAnswerAllCards(true);
+        setQueueAnswers(layoutQueue);
     }
 
 
@@ -64,13 +91,15 @@ export default function Deck(){
                                 openSelectedCard={openSelectedCard}
                                 key={idx}
                                 answer={getAnswerCard(idx)}
+                                answerCard={answerCard}
                                 />
                 })}
 
             </Main>
             <Footer>
-                <Action answerCard={answerCard}/>
                 <p>{listAnswerCards.length}/{flashcards.length} CONCLUÍDOS</p>
+                <Queue>{hasAnswerAllCards === true ? queueAnswers : ""}</Queue>
+                
             </Footer>
         </Container>
     );
@@ -129,5 +158,11 @@ const Footer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
+`
+
+const Queue = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 25px;
 `
 

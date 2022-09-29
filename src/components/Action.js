@@ -16,6 +16,7 @@ const Container = styled.div`
     justify-content: space-around;
     align-items: center;
     gap: 10px;
+    margin-top: 10px;
 `
 
 const Button = styled.span`
@@ -30,6 +31,7 @@ const Button = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     &:hover {
         filter: brightness(0.7)

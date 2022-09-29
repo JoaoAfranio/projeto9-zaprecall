@@ -7,23 +7,23 @@ import checkmark from "../assets/img/checkmark.svg"
 import close from "../assets/img/close.svg"
 import help from "../assets/img/help.svg"
 
+import Action from "./Action"
 
 
-export default function Flashcard({id, content, isFocusCard, showAnswerFocusCard, showAnswerCard, openSelectedCard, answer}) {
+
+export default function Flashcard({id, content, isFocusCard, showAnswerFocusCard, showAnswerCard, openSelectedCard, answer, answerCard}) {
+    const layoutResposta = [content.resposta, <Action answerCard={answerCard}/>]
+    const layoutPergunta = [content.pergunta,<div> <img src={setinha} alt="play" onClick={() => {showAnswerCard()}}></img></div>]
+
     function renderFlashcard() {
         if(isFocusCard === true){
             return (
                 <Content className="aberto"> 
-                        {showAnswerFocusCard === true ? content.resposta : content.pergunta}
-                        <div>
-                            <img src={setinha} alt="play" onClick={() => {showAnswerCard()}}></img>
-                        </div>
+                        {showAnswerFocusCard === true ? layoutResposta : layoutPergunta}
+
                 </Content>
             )
         } else if(answer.isAnswered === true) {
-            
-
-
             return (
                 <Content className={answer.typeOfAnswer}> 
                     Pergunta {id + 1}
