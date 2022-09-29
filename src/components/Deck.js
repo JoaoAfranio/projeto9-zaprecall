@@ -2,6 +2,7 @@ import logo from "../assets/img/logo.png"
 import React from "react";
 import Flashcard from "./Flashcard";
 import styled from "styled-components";
+import Action from "./Action";
 
 
 
@@ -38,8 +39,10 @@ export default function Deck(){
     }
 
     function answerCard(ans) {
+        if(focusCard === undefined) return;
         setlistAnswerCards([...listAnswerCards, {id: focusCard, answer: ans}])
         setFocusCard();
+        console.log(listAnswerCards);
     }
 
 
@@ -66,12 +69,8 @@ export default function Deck(){
 
             </Main>
             <Footer>
-                <Action>
-                    <Button onClick={() => {answerCard("erro")}} className="error">Não lembrei</Button>
-                    <Button onClick={() => {answerCard("help")}} className="almost">Quase não lembrei</Button>
-                    <Button onClick={() => {answerCard("acerto")}} className="zap">Zap!</Button>
-                </Action>
-                <p>{listAnswerCards.length}/4 CONCLUÍDOS</p>
+                <Action answerCard={answerCard}/>
+                <p>{listAnswerCards.length}/{flashcards.length} CONCLUÍDOS</p>
             </Footer>
         </Container>
     );
@@ -132,40 +131,3 @@ const Footer = styled.div`
     gap: 20px;
 `
 
-const Action = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    gap: 10px;
-`
-
-const Button = styled.span`
-    width: 100%;
-    height: 40px;
-    background-color: green;
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-        filter: brightness(0.7)
-    }
-
-    &.error {
-        background-color: var(--cor-nao-lembrei);
-    }
-
-    &.almost {
-        background-color: var(--cor-quase-nao-lembrei);
-    }
-
-    &.zap {
-        background-color: var(--cor-zap);
-    }
-`
