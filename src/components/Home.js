@@ -45,6 +45,23 @@ export default function Home() {
         resposta: "Com que frequência você se exercita?",
       },
     ],
+    [
+      {
+        pergunta: "Bienvenue!",
+        resposta: "Bem-vindo!",
+      },
+      {
+        pergunta: "Je m'appelle...",
+        resposta: "Meu nome é...",
+      },
+      {
+        pergunta: "Enchanté",
+        resposta: "Prazer em conhecê-lo.",
+      },
+      { pergunta: "Ça va?", resposta: "Como você está?" },
+      { pergunta: "Le poisson", resposta: "Peixe" },
+      { pergunta: "Le pain", resposta: "Pão" },
+    ],
   ];
 
   return (

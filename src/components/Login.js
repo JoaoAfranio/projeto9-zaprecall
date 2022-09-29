@@ -19,6 +19,7 @@ export default function Login({ setNavigation, setSelectedDeck }) {
       >
         <option value="0">React</option>
         <option value="1">Inglês</option>
+        <option value="2">Francês</option>
       </Select>
       <Button
         onClick={() => {
