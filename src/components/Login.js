@@ -1,13 +1,29 @@
 import styled from "styled-components";
 import logo from "../assets/img/logo.png";
 
-export default function Login({ setNavigation }) {
+import React from "react";
+
+export default function Login({ setNavigation, setSelectedDeck }) {
+  const [valueSelect, setValueSelect] = React.useState(0);
+
   return (
     <Container>
       <img src={logo} alt={logo}></img>
       <h1>ZapRecall</h1>
+      <Select
+        value={valueSelect}
+        onChange={(e) => {
+          setValueSelect(e.target.value);
+        }}
+        id="deckSelect"
+      >
+        <option value="0">React</option>
+        <option value="1">Inglês</option>
+      </Select>
       <Button
         onClick={() => {
+          console.log(valueSelect);
+          setSelectedDeck(valueSelect);
           setNavigation("Deck");
         }}
       >
@@ -23,6 +39,14 @@ const Container = styled.div`
   align-items: center;
 
   gap: 50px;
+`;
+
+const Select = styled.select`
+  outline: none;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
 `;
 
 const Button = styled.button`

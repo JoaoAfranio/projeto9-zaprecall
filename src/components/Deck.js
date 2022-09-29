@@ -7,20 +7,7 @@ import { ReactComponent as Checkmark } from "../assets/img/checkmark.svg";
 import { ReactComponent as Close } from "../assets/img/close.svg";
 import { ReactComponent as Help } from "../assets/img/help.svg";
 
-const flashcards = [
-  {
-    pergunta: "O que é JSX?",
-    resposta: "Uma extensão de linguagem do JavaScript",
-  },
-  {
-    pergunta: "O React é __ ",
-    resposta: "Uma biblioteca JavaScript para construção de interfaces",
-  },
-  { pergunta: "Componentes devem iniciar com __", resposta: "Letra maiúscula" },
-  { pergunta: "Podemos colocar __ dentro do JSX", resposta: "Expressões" },
-];
-
-export default function Deck() {
+export default function Deck({ flashcard }) {
   const [focusCard, setFocusCard] = React.useState();
   const [showAnswerFocusCard, setShowAnswerFocusCard] = React.useState(false);
   const [listAnswerCards, setlistAnswerCards] = React.useState([]);
@@ -58,7 +45,7 @@ export default function Deck() {
     setFocusCard();
 
     const lengthLista = listAnswerCards.length + 1;
-    if (lengthLista === flashcards.length) AnsweredAllCards(newList);
+    if (lengthLista === flashcard.length) AnsweredAllCards(newList);
   }
 
   function AnsweredAllCards(list) {
@@ -86,16 +73,16 @@ export default function Deck() {
         <h1>ZapRecall</h1>
       </Header>
       <Main>
-        {flashcards.map((f, idx) => {
+        {flashcard.map((f, idx) => {
           return (
             <Flashcard
+              key={idx}
               id={idx}
               content={f}
               isFocusCard={focusCard === idx ? true : false}
               showAnswerFocusCard={showAnswerFocusCard}
               showAnswerCard={showAnswerCard}
               openSelectedCard={openSelectedCard}
-              key={idx}
               answer={getAnswerCard(idx)}
               answerCard={answerCard}
             />
@@ -104,7 +91,7 @@ export default function Deck() {
       </Main>
       <Footer>
         <p>
-          {listAnswerCards.length}/{flashcards.length} CONCLUÍDOS
+          {listAnswerCards.length}/{flashcard.length} CONCLUÍDOS
         </p>
         <Queue>{hasAnswerAllCards === true ? queueAnswers : ""}</Queue>
       </Footer>
