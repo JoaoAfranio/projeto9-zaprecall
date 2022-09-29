@@ -90,7 +90,7 @@ export default function Deck({ flashcard }) {
         })}
       </Main>
       <Footer>
-        <p>
+        <p data-identifier="flashcard-counter">
           {listAnswerCards.length}/{flashcard.length} CONCLUÍDOS
         </p>
         <Queue>{hasAnswerAllCards === true ? queueAnswers : ""}</Queue>

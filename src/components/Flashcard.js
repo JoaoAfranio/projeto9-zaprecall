@@ -19,12 +19,15 @@ export default function Flashcard({
   answer,
   answerCard,
 }) {
-  const layoutResposta = [content.resposta, <Action answerCard={answerCard} />];
+  const layoutResposta = [
+    <span data-identifier="flashcard-answer">{content.resposta}</span>,
+    <Action answerCard={answerCard} />,
+  ];
   const layoutPergunta = [
-    content.pergunta,
+    <span data-identifier="flashcard-question">{content.pergunta}</span>,
     <div>
-      {" "}
       <img
+        data-identifier="flashcard-turn-btn"
         src={setinha}
         alt="play"
         onClick={() => {
@@ -34,21 +37,31 @@ export default function Flashcard({
     </div>,
   ];
 
-  const checkMarkSVG = <Checkmark className="acerto" alt="acerto" />;
-  const helpSVG = <Help className="help" alt="help" />;
-  const closeSVG = <Close className="erro" alt="erro" />;
+  const checkMarkSVG = (
+    <Checkmark
+      data-identifier="flashcard-status"
+      className="acerto"
+      alt="acerto"
+    />
+  );
+  const helpSVG = (
+    <Help data-identifier="flashcard-status" className="help" alt="help" />
+  );
+  const closeSVG = (
+    <Close data-identifier="flashcard-status" className="erro" alt="erro" />
+  );
 
   function renderFlashcard() {
     if (isFocusCard === true) {
       return (
-        <Content className="aberto">
+        <Content data-identifier="flashcard" className="aberto">
           {showAnswerFocusCard === true ? layoutResposta : layoutPergunta}
         </Content>
       );
     } else if (answer.isAnswered === true) {
       return (
-        <Content className={answer.typeOfAnswer}>
-          Pergunta {id + 1}
+        <Content data-identifier="flashcard" className={answer.typeOfAnswer}>
+          <span data-identifier="flashcard-index-item">Pergunta {id + 1}</span>
           <div class="icone">
             {answer.typeOfAnswer === "acerto"
               ? checkMarkSVG
@@ -60,13 +73,15 @@ export default function Flashcard({
       );
     } else {
       return (
-        <Content
-          onClick={() => {
-            openSelectedCard(id);
-          }}
-        >
-          Pergunta {id + 1}
-          <PlayOutline className="icone" />
+        <Content data-identifier="flashcard">
+          <span data-identifier="flashcard-index-item">Pergunta {id + 1}</span>
+          <PlayOutline
+            onClick={() => {
+              openSelectedCard(id);
+            }}
+            data-identifier="flashcard-show-btn"
+            className="icone"
+          />
         </Content>
       );
     }
