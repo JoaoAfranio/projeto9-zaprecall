@@ -9,20 +9,8 @@ import { ReactComponent as Checkmark } from "../assets/img/checkmark.svg";
 import { ReactComponent as Close } from "../assets/img/close.svg";
 import { ReactComponent as Help } from "../assets/img/help.svg";
 
-export default function Flashcard({
-  id,
-  content,
-  isFocusCard,
-  showAnswerFocusCard,
-  showAnswerCard,
-  openSelectedCard,
-  answer,
-  answerCard,
-}) {
-  const layoutResposta = [
-    <span data-identifier="flashcard-answer">{content.resposta}</span>,
-    <Action answerCard={answerCard} />,
-  ];
+export default function Flashcard({ id, content, isFocusCard, showAnswerFocusCard, showAnswerCard, openSelectedCard, answer, answerCard }) {
+  const layoutResposta = [<span data-identifier="flashcard-answer">{content.resposta}</span>, <Action answerCard={answerCard} />];
   const layoutPergunta = [
     <span data-identifier="flashcard-question">{content.pergunta}</span>,
     <div>
@@ -37,19 +25,9 @@ export default function Flashcard({
     </div>,
   ];
 
-  const checkMarkSVG = (
-    <Checkmark
-      data-identifier="flashcard-status"
-      className="acerto"
-      alt="acerto"
-    />
-  );
-  const helpSVG = (
-    <Help data-identifier="flashcard-status" className="help" alt="help" />
-  );
-  const closeSVG = (
-    <Close data-identifier="flashcard-status" className="erro" alt="erro" />
-  );
+  const checkMarkSVG = <Checkmark data-identifier="flashcard-status" className="acerto" alt="acerto" />;
+  const helpSVG = <Help data-identifier="flashcard-status" className="help" alt="help" />;
+  const closeSVG = <Close data-identifier="flashcard-status" className="erro" alt="erro" />;
 
   function renderFlashcard() {
     if (isFocusCard === true) {
@@ -62,13 +40,7 @@ export default function Flashcard({
       return (
         <Content data-identifier="flashcard" className={answer.typeOfAnswer}>
           <span data-identifier="flashcard-index-item">Pergunta {id + 1}</span>
-          <div class="icone">
-            {answer.typeOfAnswer === "acerto"
-              ? checkMarkSVG
-              : answer.typeOfAnswer === "erro"
-              ? closeSVG
-              : helpSVG}
-          </div>
+          <div class="icone">{answer.typeOfAnswer === "acerto" ? checkMarkSVG : answer.typeOfAnswer === "erro" ? closeSVG : helpSVG}</div>
         </Content>
       );
     } else {

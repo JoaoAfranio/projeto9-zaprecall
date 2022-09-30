@@ -53,11 +53,7 @@ export default function Deck({ flashcard }) {
     const layoutQueue = ordenedList.map((ans) => {
       return (
         <div key={ans.id} class="icone">
-          {ans.answer === "acerto"
-            ? checkMarkSVG
-            : ans.answer === "erro"
-            ? closeSVG
-            : helpSVG}
+          {ans.answer === "acerto" ? checkMarkSVG : ans.answer === "erro" ? closeSVG : helpSVG}
         </div>
       );
     });

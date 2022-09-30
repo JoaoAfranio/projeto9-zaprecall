@@ -18,7 +18,9 @@ export default function Login({ setNavigation, setSelectedDeck }) {
         }}
         id="deckSelect"
       >
-        {decks.map((d, id) => <option value={id}>{d.titulo}</option>)}
+        {decks.map((d, id) => (
+          <option value={id}>{d.titulo}</option>
+        ))}
       </Select>
       <Button
         onClick={() => {
