@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logo from "../assets/img/logo.png";
+import { decks } from "./decks";
 
 import React from "react";
 
@@ -17,9 +18,7 @@ export default function Login({ setNavigation, setSelectedDeck }) {
         }}
         id="deckSelect"
       >
-        <option value="0">React</option>
-        <option value="1">Inglês</option>
-        <option value="2">Francês</option>
+        {decks.map((d, id) => <option value={id}>{d.titulo}</option>)}
       </Select>
       <Button
         onClick={() => {
