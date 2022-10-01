@@ -40,7 +40,7 @@ export default function Flashcard({ id, content, isFocusCard, showAnswerFocusCar
       return (
         <Content data-identifier="flashcard" className={answer.typeOfAnswer}>
           <span data-identifier="flashcard-index-item">Pergunta {id + 1}</span>
-          <div class="icone">{answer.typeOfAnswer === "acerto" ? checkMarkSVG : answer.typeOfAnswer === "erro" ? closeSVG : helpSVG}</div>
+          <div className="icone">{answer.typeOfAnswer === "acerto" ? checkMarkSVG : answer.typeOfAnswer === "erro" ? closeSVG : helpSVG}</div>
         </Content>
       );
     } else {

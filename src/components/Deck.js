@@ -7,7 +7,7 @@ import { ReactComponent as Checkmark } from "../assets/img/checkmark.svg";
 import { ReactComponent as Close } from "../assets/img/close.svg";
 import { ReactComponent as Help } from "../assets/img/help.svg";
 
-export default function Deck({ flashcard }) {
+export default function Deck({ flashcard, selectedGoal }) {
   const [focusCard, setFocusCard] = React.useState();
   const [showAnswerFocusCard, setShowAnswerFocusCard] = React.useState(false);
   const [listAnswerCards, setlistAnswerCards] = React.useState([]);
@@ -52,7 +52,7 @@ export default function Deck({ flashcard }) {
     const ordenedList = list.sort((a, b) => a.id > b.id);
     const layoutQueue = ordenedList.map((ans) => {
       return (
-        <div key={ans.id} class="icone">
+        <div key={ans.id} className="icone">
           {ans.answer === "acerto" ? checkMarkSVG : ans.answer === "erro" ? closeSVG : helpSVG}
         </div>
       );
@@ -60,6 +60,16 @@ export default function Deck({ flashcard }) {
 
     setHasAnswerAllCards(true);
     setQueueAnswers(layoutQueue);
+    calculateGoal(list);
+  }
+
+  function calculateGoal(list) {
+    const zaps = list.filter((a) => a.answer === "acerto");
+    if (zaps.length >= selectedGoal) {
+      alert("Parabéns!!!");
+    } else {
+      alert("Putz...");
+    }
   }
 
   return (

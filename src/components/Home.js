@@ -8,10 +8,15 @@ import React from "react";
 export default function Home() {
   const [navigation, setNavigation] = React.useState("Login");
   const [selectedDeck, setSelectedDeck] = React.useState();
+  const [selectedGoal, setSelectedGoal] = React.useState();
 
   return (
     <Container>
-      {navigation === "Login" ? <Login setSelectedDeck={setSelectedDeck} setNavigation={setNavigation} /> : <Deck flashcard={decks[selectedDeck].flashcards} />}
+      {navigation === "Login" ? (
+        <Login setSelectedGoal={setSelectedGoal} setSelectedDeck={setSelectedDeck} setNavigation={setNavigation} />
+      ) : (
+        <Deck selectedGoal={selectedGoal} flashcard={decks[selectedDeck].flashcards} />
+      )}
     </Container>
   );
 }
