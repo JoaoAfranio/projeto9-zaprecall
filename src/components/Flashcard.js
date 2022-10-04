@@ -1,50 +1,38 @@
 import styled from "styled-components";
+import { Checkmark, Help, Close, PlayOutline } from "../assets";
 
-import setinha from "../assets/img/setinha.png";
-
-import Action from "./Action";
-
-import { ReactComponent as PlayOutline } from "../assets/img/play-outline-icon.svg";
-import { ReactComponent as Checkmark } from "../assets/img/checkmark.svg";
-import { ReactComponent as Close } from "../assets/img/close.svg";
-import { ReactComponent as Help } from "../assets/img/help.svg";
+import Answer from "./Answer";
+import Question from "./Question";
 
 export default function Flashcard({ id, content, isFocusCard, showAnswerFocusCard, showAnswerCard, openSelectedCard, answer, answerCard }) {
-  const layoutResposta = [<span data-identifier="flashcard-answer">{content.resposta}</span>, <Action answerCard={answerCard} />];
-  const layoutPergunta = [
-    <span data-identifier="flashcard-question">{content.pergunta}</span>,
-    <div>
-      <img
-        data-identifier="flashcard-turn-btn"
-        src={setinha}
-        alt="play"
-        onClick={() => {
-          showAnswerCard();
-        }}
-      ></img>
-    </div>,
-  ];
-
-  const checkMarkSVG = <Checkmark data-identifier="flashcard-status" className="acerto" alt="acerto" />;
-  const helpSVG = <Help data-identifier="flashcard-status" className="help" alt="help" />;
-  const closeSVG = <Close data-identifier="flashcard-status" className="erro" alt="erro" />;
-
-  function renderFlashcard() {
-    if (isFocusCard === true) {
-      return (
+  return (
+    <>
+      {isFocusCard === true && (
         <Content data-identifier="flashcard" className="aberto">
-          {showAnswerFocusCard === true ? layoutResposta : layoutPergunta}
+          {showAnswerFocusCard === true ? (
+            <Answer answerCard={answerCard} answer={content.resposta} />
+          ) : (
+            <Question question={content.pergunta} showAnswerCard={showAnswerCard} />
+          )}
         </Content>
-      );
-    } else if (answer.isAnswered === true) {
-      return (
+      )}
+
+      {answer.isAnswered === true && (
         <Content data-identifier="flashcard" className={answer.typeOfAnswer}>
           <span data-identifier="flashcard-index-item">Pergunta {id + 1}</span>
-          <div className="icone">{answer.typeOfAnswer === "acerto" ? checkMarkSVG : answer.typeOfAnswer === "erro" ? closeSVG : helpSVG}</div>
+          <div className="icone">
+            {answer.typeOfAnswer === "acerto" ? (
+              <Checkmark data-identifier="flashcard-status" className="acerto" alt="acerto" />
+            ) : answer.typeOfAnswer === "erro" ? (
+              <Close data-identifier="flashcard-status" className="erro" alt="erro" />
+            ) : (
+              <Help data-identifier="flashcard-status" className="help" alt="help" />
+            )}
+          </div>
         </Content>
-      );
-    } else {
-      return (
+      )}
+
+      {!isFocusCard === true && !answer.isAnswered === true && (
         <Content data-identifier="flashcard">
           <span data-identifier="flashcard-index-item">Pergunta {id + 1}</span>
           <PlayOutline
@@ -55,11 +43,9 @@ export default function Flashcard({ id, content, isFocusCard, showAnswerFocusCar
             className="icone"
           />
         </Content>
-      );
-    }
-  }
-
-  return renderFlashcard();
+      )}
+    </>
+  );
 }
 
 const Content = styled.div`

@@ -3,31 +3,13 @@ import styled from "styled-components";
 export default function Action({ answerCard }) {
   return (
     <Container>
-      <Button
-        data-identifier="forgot-btn"
-        onClick={() => {
-          answerCard("erro");
-        }}
-        className="error"
-      >
+      <Button data-identifier="forgot-btn" onClick={() => answerCard("erro")} className="error">
         Não lembrei
       </Button>
-      <Button
-        data-identifier="almost-forgot-btn"
-        onClick={() => {
-          answerCard("help");
-        }}
-        className="almost"
-      >
+      <Button data-identifier="almost-forgot-btn" onClick={() => answerCard("help")} className="almost">
         Quase não lembrei
       </Button>
-      <Button
-        data-identifier="zap-btn"
-        onClick={() => {
-          answerCard("acerto");
-        }}
-        className="zap"
-      >
+      <Button data-identifier="zap-btn" onClick={() => answerCard("acerto")} className="zap">
         Zap!
       </Button>
     </Container>
